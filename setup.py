@@ -4,7 +4,7 @@
 from distutils.core import setup
 setup(
     name='revisionist',
-    version='1.0.1-snapshot',
+    version='1.0.2-snapshot',
     description='Library to parse and modify Subversion dumpfiles.',
     author="Ben Smith-Mannschott",
     author_email="benpsm@gmail.com",
