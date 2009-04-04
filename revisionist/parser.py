@@ -248,13 +248,11 @@ class Parser(object):
             self.reader = None
             self.reader = Reader(fileLike)
             self.reader.next()
-            for evt in self.parseDumpfile(): yield evt
-        except:
-            print >>sys.stderr, str(self.reader)
-            raise
-        assert self.reader.eof, msg("""
-            Stopped parsing before end of input
-            %s""" % (parser.reader,))
+            for evt in self.parseDumpfile():
+                yield evt
+        finally:
+            assert self.reader.eof, msg("Stopped parsing before end of input\n"
+                                        + str(self.reader))
 
     def parseDumpfile(self):
         """
