@@ -1,0 +1,344 @@
+SVN-fs-dump-format-version: 2
+
+UUID: 3a23a347-c6cf-4036-a84c-3929b8e2c92c
+
+Revision-number: 0
+Prop-content-length: 56
+Content-length: 56
+
+K 8
+svn:date
+V 27
+2007-03-17T20:08:26.343029Z
+PROPS-END
+
+Revision-number: 1
+Prop-content-length: 121
+Content-length: 121
+
+K 7
+svn:log
+V 20
+added empty file.txt
+K 10
+svn:author
+V 6
+bsmith
+K 8
+svn:date
+V 27
+2007-03-17T20:09:08.280951Z
+PROPS-END
+
+Node-path: empty.txt
+Node-kind: file
+Node-action: add
+Prop-content-length: 10
+Text-content-length: 0
+Text-content-md5: d41d8cd98f00b204e9800998ecf8427e
+Content-length: 10
+
+PROPS-END
+
+
+Revision-number: 2
+Prop-content-length: 242
+Content-length: 242
+
+K 7
+svn:log
+V 140
+Adding file with an unterminated last line.
+I'm also taking this opportunity to insert a
+multi-line property value. (you're looking at it).
+
+K 10
+svn:author
+V 6
+bsmith
+K 8
+svn:date
+V 27
+2007-03-17T20:11:57.695409Z
+PROPS-END
+
+Node-path: unterminated-last-line.txt
+Node-kind: file
+Node-action: add
+Prop-content-length: 10
+Text-content-length: 48
+Text-content-md5: f4f0de1403ba95f98a67b4387534f80b
+Content-length: 58
+
+PROPS-END
+First line
+Second line
+Third line, unterminated
+
+
+Revision-number: 3
+Prop-content-length: 100
+Content-length: 100
+
+K 7
+svn:log
+V 0
+
+K 10
+svn:author
+V 6
+bsmith
+K 8
+svn:date
+V 27
+2007-03-17T20:14:46.314091Z
+PROPS-END
+
+Node-path: terminated-last-line.txt
+Node-kind: file
+Node-action: add
+Prop-content-length: 10
+Text-content-length: 224
+Text-content-md5: 3513baa8fdb82426428eaa59e975445a
+Content-length: 234
+
+PROPS-END
+?                                       terminated-last-line.txt
+                0        0  ?           .
+                2        2 bsmith       unterminated-last-line.txt
+                1        1 bsmith       empty.txt
+
+
+Revision-number: 4
+Prop-content-length: 121
+Content-length: 121
+
+K 7
+svn:log
+V 20
+added property prop1
+K 10
+svn:author
+V 6
+bsmith
+K 8
+svn:date
+V 27
+2007-03-17T20:15:35.424597Z
+PROPS-END
+
+Node-path: unterminated-last-line.txt
+Node-kind: file
+Node-action: change
+Prop-content-length: 31
+Content-length: 31
+
+K 5
+prop1
+V 6
+value1
+PROPS-END
+
+
+Revision-number: 5
+Prop-content-length: 121
+Content-length: 121
+
+K 7
+svn:log
+V 20
+added property prop2
+K 10
+svn:author
+V 6
+bsmith
+K 8
+svn:date
+V 27
+2007-03-17T20:15:51.578070Z
+PROPS-END
+
+Node-path: unterminated-last-line.txt
+Node-kind: file
+Node-action: change
+Prop-content-length: 52
+Content-length: 52
+
+K 5
+prop1
+V 6
+value1
+K 5
+prop2
+V 6
+value2
+PROPS-END
+
+
+Revision-number: 6
+Prop-content-length: 114
+Content-length: 114
+
+K 7
+svn:log
+V 13
+removed prop1
+K 10
+svn:author
+V 6
+bsmith
+K 8
+svn:date
+V 27
+2007-03-17T20:16:14.671517Z
+PROPS-END
+
+Node-path: unterminated-last-line.txt
+Node-kind: file
+Node-action: change
+Prop-content-length: 31
+Content-length: 31
+
+K 5
+prop2
+V 6
+value2
+PROPS-END
+
+
+Revision-number: 7
+Prop-content-length: 113
+Content-length: 113
+
+K 7
+svn:log
+V 12
+removed file
+K 10
+svn:author
+V 6
+bsmith
+K 8
+svn:date
+V 27
+2007-03-17T20:16:33.889040Z
+PROPS-END
+
+Node-path: unterminated-last-line.txt
+Node-action: delete
+
+
+Revision-number: 8
+Prop-content-length: 112
+Content-length: 112
+
+K 7
+svn:log
+V 11
+copied file
+K 10
+svn:author
+V 6
+bsmith
+K 8
+svn:date
+V 27
+2007-03-17T20:16:52.112957Z
+PROPS-END
+
+Node-path: terminated-last-line.copy
+Node-kind: file
+Node-action: add
+Node-copyfrom-rev: 3
+Node-copyfrom-path: terminated-last-line.txt
+
+
+Revision-number: 9
+Prop-content-length: 122
+Content-length: 122
+
+K 7
+svn:log
+V 21
+modified file content
+K 10
+svn:author
+V 6
+bsmith
+K 8
+svn:date
+V 27
+2007-03-17T20:17:22.362090Z
+PROPS-END
+
+Node-path: terminated-last-line.copy
+Node-kind: file
+Node-action: change
+Text-content-length: 166
+Text-content-md5: 2d6481f67617bde1872cdeba7cc46864
+Content-length: 166
+
+?                                       terminated-last-line.txt
+                0        0  ?           .
+                1        1 bsmith       empty.txt
+new line
+
+
+Revision-number: 10
+Prop-content-length: 158
+Content-length: 158
+
+K 7
+svn:log
+V 57
+added binary file which *really* has no final terminator.
+K 10
+svn:author
+V 6
+bsmith
+K 8
+svn:date
+V 27
+2007-03-17T20:20:04.434307Z
+PROPS-END
+
+Node-path: binaryfile.dat
+Node-kind: file
+Node-action: add
+Prop-content-length: 10
+Text-content-length: 100
+Text-content-md5: d9f5d9d2a3deac00f03c18ac85647ac6
+Content-length: 110
+
+PROPS-END
+∑√§dEø»XıùÊ‘ŸŸ'dûÌ¢2câí1V+W–ÿù¨«¯kaö«Î\÷∞Q&Gjt£äûg›¢ÿ¢¡^`ã«÷'ûV«Ã±lÃóêø|hsŸ“yj†ëttqﬁâÌ’t≤h
+
+Revision-number: 11
+Prop-content-length: 115
+Content-length: 115
+
+K 7
+svn:log
+V 14
+renamed a file
+K 10
+svn:author
+V 6
+bsmith
+K 8
+svn:date
+V 27
+2007-03-17T20:20:45.933508Z
+PROPS-END
+
+Node-path: nothing.txt
+Node-kind: file
+Node-action: add
+Node-copyfrom-rev: 1
+Node-copyfrom-path: empty.txt
+
+
+Node-path: empty.txt
+Node-action: delete
+
+
