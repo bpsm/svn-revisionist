@@ -44,14 +44,17 @@ def edit_properties(events, edit):
             evt = events.next()
             while type(evt) not in (EndRevisionHeader, EndNode):
                 if type(evt) == UserProperties:
-                    assert prop_evt == None
+                    assert prop_evt == None, \
+                        "UserProperties occur at most once in a Revision or Node."
                     prop_evt = evt
                 evt_hold.append(evt)
                 evt = events.next()
 
-            assert type(evt) in (EndRevisionHeader, EndNode)
+            assert type(evt) in (EndRevisionHeader, EndNode), \
+                "The quarks have come unglued."
             if prop_evt:
-                assert type(evt_hold[0]) in (BeginRevision, BeginNode)
+                assert type(evt_hold[0]) in (BeginRevision, BeginNode), \
+                    "UserProperties can only occur in a Revision or a Node."
                 # edit user properties of node or Revision
                 edit(prop_evt)
                 # recompute Prop-content-length and Content-length
@@ -66,7 +69,7 @@ def edit_properties(events, edit):
         else:
             yield evt
         evt = events.next()
-    assert type(evt) == EndDumpfile
+    assert type(evt) == EndDumpfile, "The quarks have come unglued."
     yield evt
 
 def echo_properties(events, property_names):

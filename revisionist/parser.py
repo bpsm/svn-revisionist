@@ -428,7 +428,9 @@ class Parser(object):
         start = self.reader.start
         properties = UserProperties()
         while not self.matchUserPropertyEnd():
-            assert not self.reader.eof
+            assert not self.reader.eof, msg("""
+                Expected to find a user property, instead found end of file.
+                """)
             if self.matchUserPropertyKey():
                 key = self.parseUserPropertyKey()
                 value = self.parseUserPropertyValue()
@@ -444,7 +446,10 @@ class Parser(object):
         else:
             self.parseUserPropertyEnd()
         stop = self.reader.start
-        assert plen == stop - start
+        assert plen == stop - start, msg(
+            """Property-Legnth is incorrect.
+            Expected %d bytes, but found %d bytes.""" % (
+                plen, stop - start))
         return properties
 
     def matchUserPropertyEnd(self):
@@ -563,7 +568,13 @@ class Parser(object):
         if plen == None:
             plen = 0
         if tlen != None:
-            assert tlen == clen - plen
+            assert tlen == clen - plen, msg("""
+                Content-Length must be the sum of Text-Content-Length and 
+                Prop-Content-Length.  This is not what was found:
+                Content-Length:      %(clen)d
+                Text-Content-Length: %(tlen)d
+                Prop-Content-Length: %(plen)d
+                """ % locals())
         else:
             tlen = clen - plen
 
@@ -577,7 +588,9 @@ class Parser(object):
 
         if tlen > 0:
             text = self.getBytes(tlen)
-            assert len(text) == tlen
+            assert len(text) == tlen, msg("""
+                Expected text to have length %d, instead it had length %d.
+                """ % (tlen, len(text)))
 
             # We can only verify the checksum when text_deltas are not
             # in use.  When text_deltas are being used, the checksum
