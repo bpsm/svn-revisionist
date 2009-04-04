@@ -250,7 +250,10 @@ class Parser(object):
             self.reader.next()
             for evt in self.parseDumpfile():
                 yield evt
-        finally:
+        except AssertionError, e :
+            sys.stderr.write(str(self.reader)+"\n")
+            raise
+        else:
             assert self.reader.eof, msg("Stopped parsing before end of input\n"
                                         + str(self.reader))
 
