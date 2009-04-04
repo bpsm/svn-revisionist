@@ -1,8 +1,9 @@
 #!/usr/bin/env python
+#-*- coding: utf-8 -*-
 
 """
 Test script for revisionist module.
-(c) 2007 Ben Smith-Mannschott <benpsm@gmail.com> 
+(c) 2007 Ben Smith-Mannschott <benpsm@gmail.com>
 
 License
   GNU Lesser General Public License.
@@ -51,5 +52,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-    
+
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
+#-*- coding: utf-8 -*-
 
 import sys
-from revisionist import *
+import revisionist
 
 def parse_options():
     "Parse command line options. See also print_usage."
@@ -26,7 +27,7 @@ def parse_options():
                     del args[0]
                 else:
                     del args[0]
-                    replacements.append(('\r\n', '\n'))
+                    replacements.append(('\r', ''))
             propsubs.append((propname, replacements))
         elif args[0] in ["--verbose", "-v"]:
             del args[0]
@@ -52,15 +53,15 @@ def main():
                 for old, new in replacements:
                     val = val.replace(old, new)
                 props[propname] = val
-                
+
     propnames = [propname for propname, x in propsubs]
-    events = parser.pull(sys.stdin)
+    events = revisionist.pull(sys.stdin)
     if verbose:
-        events = editors.echo_properties(events, propnames)
-    events = editors.edit_properties(events, edit)
+        events = revisionist.echo_properties(events, propnames)
+    events = revisionist.edit_properties(events, edit)
     if verbose:
-        events = editors.echo_properties(events, propnames)
-    writer.write_events_to_dumpfile(events, sys.stdout)
+        events = revisionist.echo_properties(events, propnames)
+    revisionist.write_events_to_dumpfile(events, sys.stdout)
 
 def print_usage():
     print >>sys.stderr, \
@@ -71,15 +72,16 @@ def print_usage():
 
  OPTIONS         = HelpOpt | PropertyClause* 
  HelpOpt         = -h | --help
- PropertyClause  = PropertyOpt EditClause*
+ PropertyClause  = PropertyOpt PropertyName EditClause*
  PropertyOpt     = -p | --property
+ PropertyName    = text
  EditClause      = NormalizeOpt | ReplaceClause
  NormalizeOpt    = -n | --normalize-line-breaks
  ReplaceClause   = ReplaceOpt OldText NewText
  ReplaceOpt      = -r | --replace
  OldText         = text
  NewText         = text
- 
+
  e.g.
 
  %s --property svn:externals \\

@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 
 """
 revisionist.parser: a parser for Subversion dumpfiles (vers 2 & 3).
-(c) 2007 Ben Smith-Mannschott <benpsm@gmail.com> 
+(c) 2007 Ben Smith-Mannschott <benpsm@gmail.com>
 
 License
   GNU Lesser General Public License.
@@ -26,7 +27,7 @@ def pull(fileLike):
     by the following BNF-like notation::
 
       BeginDumpfile
-      BlankLine* 
+      BlankLine*
         (
         BeginRevision
         BlankLine?
@@ -76,7 +77,7 @@ class BeginDumpfile( object ):
     def __repr__(self):
         return "BeginDumpfile(%r, %r)" % (self.version, self.uuid)
 
-        
+
 class EndDumpfile( object ):
     """
     Parse Event. Signals the end of the Dumpfile.  No further events
@@ -214,7 +215,7 @@ class BlankLine(object):
 # ------------------------------------------------------------------------
 
 pat_dump_property = re.compile(r"^([-A-Za-z0-9_]+):[ ](.*)$")
-        
+
 class Parser(object):
     """
     A parser for Subversion dump file format versions 2 and 3.
@@ -235,10 +236,10 @@ class Parser(object):
     and understandings of the dump file format also made it much
     easier to develop a *correct* parser.)
     """
-    
+
     def __init__(self):
         pass
-    
+
     def parse(self, fileLike):
         """
         Generate parse events from the bytes provided by fileLike.
@@ -277,7 +278,7 @@ class Parser(object):
         yield BeginDumpfile(version, uuid)
 
         for evt in self.parseBlankLines(): yield evt
-            
+
         while self.matchRevision():
             for evt in self.parseRevision(): yield evt
             for evt in self.parseBlankLines(): yield evt
@@ -291,7 +292,7 @@ class Parser(object):
             return result
         else:
             return pat_dump_property.match(self.reader.cur)
-    
+
     def parseDumpProperty(self, name=None, store=None):
         """
         A dump property consists of a name and a value on a single
@@ -317,7 +318,7 @@ class Parser(object):
         assert name == None or name == m.group(1), msg("""
             Expected property %s, but found %s
             """ % (name, m.group(1)))
-        
+
         value = m.group(2)
         if store != None:
             store[m.group(1)] = value
@@ -336,7 +337,7 @@ class Parser(object):
 
     def matchBlankLine(self):
         return self.reader.cur == "\n"
-    
+
     def parseBlankLine(self):
         """
         Parse blank line in input, reporting it as a BlankLine()
@@ -374,13 +375,13 @@ class Parser(object):
 
     def matchRevision(self):
         return self.matchDumpProperty("Revision-number")
-    
+
     def parseRevision(self):
         """
         Parse a revision, which may contain UserProperties and will
         not include TextContent::
 
-          Revision = 
+          Revision =
             BeginRevision
             BlankLine?
             UserProperties?
@@ -424,11 +425,11 @@ class Parser(object):
     def matchUserProperties(self):
         return (self.matchUserPropertyKey()
                 or self.matchUserPropertyDelete())
-    
+
     def parseUserProperties(self, plen, prop_delta=False):
         start = self.reader.start
         properties = UserProperties()
-        while not self.matchUserPropertyEnd(): 
+        while not self.matchUserPropertyEnd():
             assert not self.reader.eof
             if self.matchUserPropertyKey():
                 key = self.parseUserPropertyKey()
@@ -456,7 +457,7 @@ class Parser(object):
             Expected PROPS-END, but found\n%s
             """ % (self.reader,))
         self.reader.next()
-    
+
     def matchUserPropertyKey(self):
         return self.reader.cur.startswith("K ")
 
@@ -501,13 +502,13 @@ class Parser(object):
 
     def matchNode(self):
         return self.matchDumpProperty("Node-path")
-                                 
+
     def parseNode(self):
         """
         Parse a single node, which may contain both UserProperties and
         TextContent.
-        
-          Node = 
+
+          Node =
               BeginNode
               BlankLine?
               UserProperties?
@@ -524,7 +525,7 @@ class Parser(object):
         else:
             node_kind = None
         node_action = self.parseDumpProperty("Node-action", dump_props)
-        
+
         # A number of optional properties follow. We know what they
         # can be, but their order isn't fixed.
         #
@@ -597,7 +598,7 @@ class Parser(object):
             yield TextContent(text)
             # TextContent is always terminated by an 'extra' newline,
             # which getBytes consumes for us, but does not return.
-            yield BlankLine() 
+            yield BlankLine()
 
         for evt in self.parseBlankLines():
             yield evt
@@ -684,7 +685,7 @@ class Reader(object):
             stop     = %d
             linenr   = %d
             eof      = %s
-            """ % (len(self.cur), self.cur[:72], 
+            """ % (len(self.cur), self.cur[:72],
                    self.start, self.stop, self.linenr, self.eof))
 
 

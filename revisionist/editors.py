@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 """
 revisionist.editors: edit subversion dumpfiles emitted by parser
-(c) 2007 Ben Smith-Mannschott <benpsm@gmail.com> 
+(c) 2007 Ben Smith-Mannschott <benpsm@gmail.com>
 
 License
   GNU Lesser General Public License.
@@ -31,7 +33,7 @@ def edit_properties(events, edit):
     while type(evt) != EndDumpfile:
         if type(evt) in (BeginRevision, BeginNode) :
             edit(evt) # Edit dump properties of Node or Revision
-            
+
             # we'll need to postpone emitting this event and any that
             # follow until the end of the node or end of the revision
             # header so that we can recompute Prop and Content lengths
@@ -70,7 +72,7 @@ def edit_properties(events, edit):
 def echo_properties(events, property_names):
     """
     Print selected properties to stderr as they pass through.
-    
+
     Passes parse events through unchanged.  Any property, be it a user
     property or a dump property with a name in the list events will be
     printed.
@@ -88,7 +90,7 @@ def consume_events(events):
     """
     for x in events:
         pass
-    
+
 def show_progress(events):
     """
     Print out some nead lines of periods to stderr while events pass
@@ -96,7 +98,7 @@ def show_progress(events):
     """
     period = 1000
     line_width = 78
-    
+
     next_nl = period*line_width
     next_dot = period
     n = 0

@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 
 """
 revisionist.write: write Subversion dumpfiles (vers 2 & 3)
-(c) 2007 Ben Smith-Mannschott <benpsm@gmail.com> 
+(c) 2007 Ben Smith-Mannschott <benpsm@gmail.com>
 
 License
   GNU Lesser General Public License.
@@ -31,10 +32,10 @@ def write_events_to_dumpfile(events, dstFile):
 
     try:
         for evt in events:
-            
+
             # This is all sanity checking, to make sure we don't
             # silently produce an invalid dump file.
-            
+
             if type(evt) == BeginDumpfile:
                 # remember the version of the dump file
                 version = evt.version
@@ -68,7 +69,7 @@ def write_events_to_dumpfile(events, dstFile):
                     text_content_md5 = evt.get("Text-content-md5")
                 text_content_length = int(evt.get("Text-content-length", 0))
                 prop_content_length = int(evt.get("Prop-content-length", 0))
-                
+
             elif type(evt) == EndNode:
                 # forget checksum and size
                 text_content_md5 = None
@@ -80,7 +81,7 @@ def write_events_to_dumpfile(events, dstFile):
 
             elif type(evt) == EndRevisionHeader:
                 prop_content_length = None
-                
+
             elif type(evt) == TextContent:
                 # validate against text_content_length
                 assert text_content_length == len(evt), msg(
@@ -105,10 +106,10 @@ def write_events_to_dumpfile(events, dstFile):
                        Prop-content-length: %d
                        Actual length:       %d"""
                     % (prop_content_length, len(str(evt))))
-                    
+
             # this is the actual write to the file. compact, isn't it?
-                    
+
             dstFile.write(str(evt))
-            
+
     finally:
         dstFile.close()

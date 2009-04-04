@@ -1,7 +1,8 @@
+#-*- coding: utf-8 -*-
 
 """
 revisionist.util: utils for subversion revisionist tools
-(c) 2007 Ben Smith-Mannschott <benpsm@gmail.com> 
+(c) 2007 Ben Smith-Mannschott <benpsm@gmail.com>
 
 License
   GNU Lesser General Public License.
@@ -30,7 +31,7 @@ def crop_text_block(text):
         # it's all blank. just return the empty string
         return ""
 
-    # get the index of the last non-blank 
+    # get the index of the last non-blank
     i = len(lines) - 1
     while i >= 0 and pat_blank.match(lines[i]): i -= 1
     last = i
@@ -69,7 +70,7 @@ def crop_text_block(text):
 
     if text[-1] == '\n':
         lines.append('')
-    
+
     result = "\n".join(lines)
 
     return result
@@ -94,7 +95,7 @@ def curry(function, *curry_args, **curry_kwargs):
 class odict(dict):
     """
     An extension of dict which remembers the insertion order of its
-    keys.  
+    keys.
     """
     def __init__(self, *args, **kwargs):
         """
@@ -122,22 +123,22 @@ class odict(dict):
                 self[k] = v
         for k in kwargs:
             self[k] = kwargs[k]
-        
+
     def __setitem__(self, key, value):
         if key not in self:
             self.ordered_keys.append(key)
         dict.__setitem__(self, key, value)
-        
+
     def __getitem__(self, key):
         return dict.__getitem__(self, key)
-    
+
     def __delitem__(self, key):
         dict.__delitem__(self, key)
         self.ordered_keys.remove(key)
-        
+
     def keys(self):
         return list(self.ordered_keys)
-    
+
     def copy(self):
         cp = odict(self)
         return cp
@@ -168,7 +169,7 @@ class odict(dict):
     def __repr__(self):
         return "odict(%r)" % ( [item for item in self.iteritems()],)
 
-                   
+
 def test_odict():
     o = odict()
     assert len(o) == 0
@@ -183,7 +184,7 @@ def test_odict():
     assert [x for x in o.iteritems()] == [(5,1),(4,2),(3,3),(2,4),(1,5)]
     assert [x for x in o.iterkeys()] == [5, 4, 3, 2, 1]
     assert [x for x in o.itervalues()] == [1, 2, 3, 4, 5]
-    
-            
-    
-    
+
+
+
+
