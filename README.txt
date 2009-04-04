@@ -42,7 +42,7 @@ Legal option combinations are described by this BNF:
     HelpOpt         = -h | --help
     PropertyClause  = PropertyOpt PropertyName EditClause*
     PropertyOpt     = -p | --property
-    PropertyName    = text
+    PropertyName    = text (unix-style glob syntax accepted)
     EditClause      = NormalizeOpt | ReplaceClause
     NormalizeOpt    = -n | --normalize-line-breaks
     ReplaceClause   = ReplaceOpt OldText NewText
