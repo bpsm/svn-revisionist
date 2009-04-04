@@ -3,6 +3,7 @@
 
 import sys
 import revisionist
+from fnmatch import fnmatchcase
 
 def parse_options():
     "Parse command line options. See also print_usage."
@@ -45,14 +46,13 @@ def main():
         return 1
 
     def edit(props):
-        for propname, replacements in propsubs:
-            # covers two cases: propname not present; propname has
-            # value none which indicates a V3 style propdiff deletion.
-            val = props.get(propname, None)
-            if val:
-                for old, new in replacements:
-                    val = val.replace(old, new)
-                props[propname] = val
+        for propname in props:
+            for propmatch, replacements in propsubs:
+                if fnmatchcase(propname, propmatch):
+                    val = props[propname]
+                    for old, new in replacements:
+                        val = val.replace(old, new)
+                    props[propname] = val
 
     propnames = [propname for propname, x in propsubs]
     events = revisionist.pull(sys.stdin)
